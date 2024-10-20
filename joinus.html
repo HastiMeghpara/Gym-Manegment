@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>H Fitness</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ffcc00;
+        }
+
+        .top-btn .nav-btn {
+            background-color: #ffcc00;
+            color: #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-center {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section Code -->
+    <header>
+        <a href="#home" class="logo">H <span> Fitness</span></a>
+        <div class='bx bx-menu' id="menu-icon"></div>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html">Services</a></li>
+            <li><a href="index.html">About us</a></li>
+            <li><a href="index.html">Pricing</a></li>
+            <li><a href="index.html">Review</a></li>
+        </ul>
+        <div class="top-btn">
+            <a href="#" class="nav-btn">Join Us</a>
+        </div>
+    </header>
+	
+	<div class="container mt-5">
+        <h2 class="text-center">Join Us</h2>
+        <form id="joinUsForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                <div class="error" id="nameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                <div class="error" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                <div class="error" id="phoneError"></div>
+            </div>
+            <div class="form-group">
+                <label for="OurPlans">Our Plans</label>
+                <select class="form-control" id="OurPlans" required>
+                    <option value="">Select Our Plans</option>
+                    <option value="BASIC">BASIC</option>
+                    <option value="PRO">PRO</option>
+                    <option value="PREMIUM">PREMIUM</option>
+                </select>
+                <div class="error" id="OurPlansError"></div>
+            </div>
+            <div class="form-group">
+                <label for="message">Additional Message</label>
+                <textarea class="form-control" id="message" rows="3" placeholder="Any additional information..."></textarea>
+                <div class="error" id="messageError"></div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Join Now</button>
+        </form>
+    </div>
+	
+	<script>
+		document.getElementById('joinUsForm').addEventListener('submit', function(event) {
+			event.preventDefault(); // Prevent the default form submission
+
+            // Clear previous error messages
+            document.getElementById('nameError').innerText = '';
+            document.getElementById('emailError').innerText = '';
+            document.getElementById('phoneError').innerText = '';
+            document.getElementById('membershipTypeError').innerText = '';
+            document.getElementById('messageError').innerText = '';
+
+			// Validate form fields
+			const name = document.getElementById('name').value.trim();
+			const email = document.getElementById('email').value.trim();
+			const phone = document.getElementById('phone').value.trim();
+			const membershipType = document.getElementById('membershipType').value;
+			const message = document.getElementById('message').value.trim();
+
+			let isValid = true;
+
+			// Validate Name
+			const namePattern = /^[A-Za-z\s]+$/; // Allows only letters and spaces
+			if (!name) {
+				document.getElementById('nameError').innerText = 'Full Name is required.';
+				isValid = false;
+			} else if (!namePattern.test(name)) {
+				document.getElementById('nameError').innerText = 'Name can only contain letters and spaces.';
+				isValid = false;
+			}
+
+			// Validate Email
+			const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email format
+			if (!email) {
+				document.getElementById('emailError').innerText = 'Email is required.';
+				isValid = false;
+			} else if (!emailPattern.test(email)) {
+				document.getElementById('emailError').innerText = 'Please enter a valid email address.';
+				isValid = false;
+			}
+
+			// Validate Phone Number
+			const phonePattern = /^[0-9\s\-]+$/; // Allows numbers, spaces, and hyphens
+			if (!phone) {
+				document.getElementById('phoneError').innerText = 'Phone Number is required.';
+				isValid = false;
+			} else if (!phonePattern.test(phone)) {
+				document.getElementById('phoneError').innerText = 'Please enter a valid phone number.';
+				isValid = false;
+			}
+
+			// Validate Membership Type
+			if (!membershipType) {
+				document.getElementById('membershipTypeError').innerText = 'Please select a Membership Type.';
+				isValid = false;
+			}
+
+			// Validate Message (optional, but check length)
+			if (message.length > 500) {
+				document.getElementById('messageError').innerText = 'Message cannot exceed 500 characters.';
+				isValid = false;
+			}
+
+			if (isValid) {
+				// Form submission logic (e.g., sending data to a server)
+				alert(`Thank you, ${name}! Your membership request has been submitted.`);
+				
+				// Reset the form
+				this.reset();
+			}
+		});
+	</script>
+	
+</body>
+</html>
